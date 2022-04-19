@@ -9,10 +9,10 @@ import Foundation
 
 struct DataModel: Decodable {
     var resultCount: Int
-    var results: [CellModel]
+    var results: [SongCellModel]
 }
 
-struct CellModel: Decodable {
+struct SongCellModel: Decodable {
     var trackName: String?
     var artworkUrl100: String?
 }

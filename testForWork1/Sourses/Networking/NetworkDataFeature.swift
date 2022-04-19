@@ -1,19 +1,8 @@
-//
-//  NetworkDataFeature.swift
-//  testForWork1
-//
-//  Created by test on 17.04.2022.
-//
-
 import Foundation
 
 class NetworkDataFeature {
 
-    //MARK: - Properties
-
     let networkService = NetworkService()
-
-    // Method what decode json file into readable format
 
     func fetchData(urlString: String, response: @escaping (DataModel?) -> Void) {
         networkService.request(urlString: urlString) { (result) in

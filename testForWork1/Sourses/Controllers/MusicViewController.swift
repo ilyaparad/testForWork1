@@ -13,6 +13,10 @@ class MusicViewController: UIViewController, UITableViewDataSource, UITableViewD
     var artistMusic: DataModel? = nil
     static var artistName: String?
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var viewThenArtistDidntSeelected: UIView!
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return artistMusic?.resultCount ?? 10
@@ -26,7 +30,6 @@ class MusicViewController: UIViewController, UITableViewDataSource, UITableViewD
         let trackImage = artistMusic?.results[indexPath.row]
         cell.cellName.text = trackName?.trackName ?? "error"
         cell.cellImage.loadFrom(URLAddress: trackImage?.artworkUrl100 ?? "")
-
         
         return cell
     }
@@ -35,26 +38,43 @@ class MusicViewController: UIViewController, UITableViewDataSource, UITableViewD
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-
-    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(MusicViewController.artistName ?? "nil")
+        
+        if ChooseArtistViewController.tapCount != 0 {
+            viewThenArtistDidntSeelected.isHidden = true
+            tableView.isHidden = false
+        } else {
+            tableView.isHidden = true
+            viewThenArtistDidntSeelected.isHidden = false
+        }
+        
         let urlString = "https://itunes.apple.com/search?term=\(MusicViewController.artistName ?? "2pac")&media=music&limit=15"
+        
         networkDatafeature.fetchData(urlString: urlString) { musicList in
             guard let artistMusic = musicList else { return }
             self.artistMusic = artistMusic
             self.tableView.reloadData()
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(MusicViewController.artistName ?? "nil")
+        
+        if ChooseArtistViewController.tapCount != 0 {
+            viewThenArtistDidntSeelected.isHidden = true
+            tableView.isHidden = false
+        } else {
+            tableView.isHidden = true
+            viewThenArtistDidntSeelected.isHidden = false
+        }
+        
         let urlString = "https://itunes.apple.com/search?term=\(MusicViewController.artistName ?? "2pac")&media=music&limit=15"
+        
         networkDatafeature.fetchData(urlString: urlString) { musicList in
             guard let artistMusic = musicList else { return }
             self.artistMusic = artistMusic
             self.tableView.reloadData()
-    }
+        }
     }
 }
