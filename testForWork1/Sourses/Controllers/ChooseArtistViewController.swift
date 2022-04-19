@@ -1,23 +1,17 @@
-//
-//  ChoseViewController.swift
-//  testForWork1
-//
-//  Created by test on 17.04.2022.
-//
-
 import UIKit
 
-class ChoseViewController: UIViewController {
-//    static var  artistGo = String()
+class ChooseArtistViewController: UIViewController {
+    
     var firstArtistGo = String()
     var secondArtistGo = String()
     var thirdArtistGo = String()
+    static var tapCount = Int()
     
     @IBOutlet weak var artistOne: UIButton!
     @IBOutlet weak var artistTwo: UIButton!
     @IBOutlet weak var artistThree: UIButton!
-    @IBOutlet weak var infoLabel: UILabel!
     
+    @IBOutlet weak var infoLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,23 +25,20 @@ class ChoseViewController: UIViewController {
     }
     
     @IBAction func firstArtistGo(_ sender: UIButton) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        guard let musicViewController = storyBoard.instantiateViewController(withIdentifier: "MusicViewController") as? MusicViewController else { return }
         MusicViewController.artistName = secondArtistGo
         infoLabel.text = " Вы выбрали исполнителя \(secondArtistGo), перейдите на следующий экран для просмотра песен"
+        ChooseArtistViewController.tapCount += 1
     }
+    
     @IBAction func secondArtistGo(_ sender: UIButton) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        guard let musicViewController = storyBoard.instantiateViewController(withIdentifier: "MusicViewController") as? MusicViewController else { return }
         MusicViewController.artistName = firstArtistGo
         infoLabel.text = " Вы выбрали исполнителя \(firstArtistGo), перейдите на следующий экран для просмотра песен"
+        ChooseArtistViewController.tapCount += 1
     }
+    
     @IBAction func thirdartistGo(_ sender: UIButton) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        guard let musicViewController = storyBoard.instantiateViewController(withIdentifier: "MusicViewController") as? MusicViewController else { return }
         MusicViewController.artistName = thirdArtistGo
         infoLabel.text = " Вы выбрали исполнителя \(thirdArtistGo), перейдите на следующий экран для просмотра песен"
+        ChooseArtistViewController.tapCount += 1
     }
-    
-    
 }
